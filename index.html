@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lrd widget</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/style.css"/>
+
+</head>
+<body>
+
+<div class="btn-container">
+    <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
+        <div class="lrd-open" id="lrd-open">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
+            </svg>
+        </div>
+        <div class="hide-lrd" id="lrd-view">
+            <lord-icon
+                src=""
+                trigger="loop"
+                style="width:50px;height:50px">
+            </lord-icon>
+        </div>
+    </button>
+    <span class="lrd-view-remove hide-lrd">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
+    </span>
+</div>
+<input type="hidden" id="lrd-value">
+<div class="cdialog-wrapper" cdialog-id="lrd">
+    <div class="cdialog-container">
+        <div class="cdialog-header">
+            <h3>LordIcon Animated Icons</h3>
+            <div class="search">
+                <input type="search" id="search-lrd" class="input-style" placeholder="Search">
+            </div>
+        </div>
+        <div class="cdialog-body" id="lord-icon-container">
+            <div class="icons-grid"></div>
+        </div>
+        <div class="cdialog-footer">
+            <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
+            <button type="button" class="btn btn-primary" id="set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="assets/jquery-3.6.0.min.js"></script>
+<script src="assets/lordicon.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let LORD_ICON_MAPPING = [
+            "1-cloud",
+            "11-link-unlink-morph",
+            "12-layers",
+            "13-pizza",
+            "16-avatar-woman-nodding",
+            "17-avatar-man-nodding",
+            "18-location-pin",
+            "19-magnifier-zoom-search",
+            "20-love-heart",
+            "21-avatar",
+            "27-globe",
+            "35-edit",
+            "37-approve-checked-simple",
+            "41-quotation-mark-second",
+            "43-music-note",
+            "45-clock-time",
+            "49-plus-circle",
+            "50-minus-circle",
+            "54-photo-picturelandscape-gallery",
+            "56-document",
+            "57-server",
+            "61-camera",
+            "62-film",
+            "63-home",
+            "64-wifi",
+            "69-eye",
+            "105-loader-1",
+            "107-box-package-open",
+            "112-book-morph",
+            "120-folder-open-morph",
+            "134-target",
+            "139-basket",
+            "146-basket-trolley-shopping-card",
+            "153-bar-chart-growth",
+            "163-graph-line-chart",
+            "177-envelope-mail-send",
+            "185-trash-bin",
+            "186-puzzle",
+            "187-suitcase",
+            "188-microphone-recording",
+            "212-arrow-1-rounded",
+            "213-arrow-2-rounded",
+            "214-arrow-3",
+            "215-arrow-4",
+            "216-arrow-5",
+            "217-arrow-6",
+            "218-arrow-7",
+            "219-arrow-8",
+            "220-arrow-9",
+            "221-arrow-10",
+            "236-alarm-clock",
+            "237-star-rating-morph",
+            "240-glass-of-wine",
+            "243-glasses-eye-blink",
+            "245-edit-document",
+            "259-share-arrow",
+            "261-emoji-smile",
+            "262-emoji-wow",
+            "268-avatar-man",
+            "269-avatar-female",
+            "290-coin",
+            "298-coins",
+            "315-menu-2-morph",
+            "316-menu-3-morph",
+            "317-menu-4-morph",
+            "318-menu-5-morph",
+            "319-menu-6-morph",
+            "331-loader-2",
+            "332-loader-3",
+            "333-loader-4",
+            "334-loader-5",
+            "350-animated-background-1",
+            "351-animated-background-2",
+            "352-animated-background-3",
+            "353-animated-background-4",
+            "354-animated-background-5",
+            "355-animated-background-6",
+            "356-animated-background-7",
+            "357-animated-background-8",
+            "358-animated-background-9",
+            "359-animated-background-10",
+            "360-animated-background-11",
+            "361-animated-background-12-morph",
+            "362-animated-background-13",
+            "363-animated-background-14",
+            "364-animated-background-15",
+            "365-animated-background-16",
+            "366-animated-background-17",
+            "367-animated-background-18",
+            "368-animated-background-19",
+            "369-animated-background-20",
+            "382-radio-button-1-morph",
+            "389-scroll-down-1-auto",
+            "390-scroll-down-2-auto",
+            "400-bookmark-morph",
+            "403-museum-authority",
+            "409-tool",
+            "412-gift",
+            "428-injection",
+            "430-rugby-ball",
+            "438-lab-bottle-round",
+            "447-water-drop",
+            "448-paws-animal-morph",
+            "450-solar-panel",
+            "453-savings-pig",
+            "466-bluetooth",
+            "471-ebook-reader",
+            "475-rescue-safety-ring-help",
+            "478-computer-display",
+            "482-church",
+            "486-school",
+            "488-bicycle",
+            "497-truck-delivery",
+            "498-ambulance",
+            "499-clipboard-film-clap",
+            "500-fingerprint-security",
+            "501-free-0",
+            "514-pool",
+            "526-paper-bag-vegetables",
+            "530-hand-washing-step-1",
+            "531-hand-washing-step-2",
+            "532-hand-washing-step-3",
+            "533-hand-washing-step-4",
+            "534-hand-washing-5-step",
+            "535-hand-washing-step-6",
+            "536-hand-washing-step-7",
+            "537-hand-washing-step-8",
+            "538-hand-washing-step-9",
+            "539-hand-washing-step-10",
+            "540-hand-washing-step-11",
+            "541-hand-washing-step-12",
+            "543-apple",
+            "563-sausage",
+            "567-french-fries-chips",
+            "571-black-tea",
+            "585-herbs",
+            "590-glass-water",
+            "615-coffee-machine",
+            "646-walking-walkcycle-person",
+            "648-victory-success",
+            "656-person-sign-protest",
+            "663-swimming",
+            "667-biking",
+            "678-fireman",
+            "680-it-developer",
+            "726-wireless-connection",
+            "742-multimedia-code-1",
+            "744-pendrive-storage",
+            "751-share",
+            "784-trumpet",
+            "798-one-free",
+            "860-electric-car",
+            "877-wharf",
+            "884-electric-scooter",
+            "901-tricycle",
+            "905-airbag",
+            "917-license-plate",
+            "926-roadblock",
+            "932-windscreen",
+            "933-ferry",
+            "942-driving-person-sleepy",
+            "943-commodity",
+            "945-dividends",
+            "946-equity-security",
+            "948-stock-share",
+            "950-attract-customers",
+            "952-business-network",
+            "955-demand",
+            "966-privacy-policy",
+            "970-video-conference",
+            "981-consultation",
+            "1021-rules",
+            "1031-music-album",
+            "1037-vlog-camera",
+            "1039-computer-speakers",
+            "1054-amazon-echo-speaker",
+            "1062-disco-ball",
+            "1068-international-music",
+            "1072-reggae-music",
+            "1092-applause",
+            "1093-add-song",
+            "1097-djembe-drum",
+            "1103-confetti",
+            "1106-birthday-hat",
+            "1108-ferris-wheel",
+            "1121-iota-internet-of-things",
+            "1122-thumb-down",
+            "1130-duck",
+            "1140-error",
+            "1141-email",
+            "1144-woodpecker",
+            "1145-wings",
+            "1146-turkey",
+            "1148-bee",
+            "1153-horse",
+            "1154-spider",
+            "1160-cat-head",
+            "1167-coral",
+            "1173-shark",
+            "1186-honeycombs",
+            "1193-pets",
+            "1203-bear",
+            "1208-squirrel",
+            "1213-snake",
+            "1221-test-tubes",
+            "1226-wheelchair",
+            "1249-heart-beat",
+            "1258-medical-mask",
+            "1270-fetus",
+            "1272-cough",
+            "1275-fever",
+            "1277-antibacterial-spray-disinfection",
+            "1284-one-1-key",
+            "1285-two-2-key",
+            "1286-three-3-key",
+            "1300-enter-key",
+            "1305-usb-cable",
+            "1309-load-balancer",
+            "1312-micro-sd-card",
+            "1315-computer-mouse",
+            "1319-php-code-language",
+            "1320-json",
+            "1321-html-5-code-language",
+            "1322-python-code-language",
+            "1323-java-code-language",
+            "1324-c-code-language",
+            "1325-code-fork",
+            "1326-command-window-line",
+            "1327-api-symbol",
+            "1330-rest-api",
+            "1331-repository",
+            "1335-qr-code",
+            "1337-cargo-ship",
+            "1339-sale",
+            "1356-wooden-box",
+            "1360-grocery-shelf",
+            "1366-trolley",
+            "1378-3-d",
+            "1383-sphere",
+            "1384-page-view-array",
+            "1387-page-view-column",
+            "1388-page-view-quilt",
+            "1391-paper-waste",
+            "1414-circle",
+            "1415-elipse",
+            "1416-triangle",
+            "1417-rounded-square",
+            "1418-rhombus",
+            "1419-polyline",
+            "1420-square",
+            "1421-rectangle",
+            "1422-polygon",
+            "1445-greek-helmet",
+            "1448-three-leaf-clover",
+            "1456-horseshoe",
+            "1459-old-shop",
+            "1461-joistick-alt",
+            "1466-archer",
+            "1468-morale",
+            "1486-food-as-resources",
+            "1497-treble-clef",
+            "1505-radio-walkie-talkie",
+            "1512-mom-feeding-baby",
+            "1513-embryo",
+            "1522-housekeeper",
+            "1531-rocking-horse",
+            "1534-paper-boat",
+            "1545-baby-clothing-bib",
+            "1558-shaving-foam",
+            "1561-comb",
+            "1574-spa-flower",
+            "1595-shampoo",
+            "1600-knife",
+            "1608-sofa",
+            "1614-sink",
+            "1639-automatic-stairs",
+            "1650-chandelier",
+            "1662-lava-lamp",
+            "1676-telephone-call-hand",
+            "1683-recycling",
+            "1688-scuba-tank",
+            "1702-electric-teapot",
+            "1713-downtown",
+            "1725-exit-sign",
+            "1730-ladder-carpentry",
+            "1732-potted-flower-plant",
+            "1736-smart-tv-layout-interface",
+            "1738-no-entry",
+            "1740-window-shutters",
+            "1754-nails-screw-carpentry",
+            "1761-olympic-rings",
+            "1764-pushups",
+            "1771-ski-simulator",
+            "1780-medal-first-place",
+            "1787-head-lamp",
+            "1789-swimmer-cap",
+            "1807-boxing-glove",
+            "1808-skateboarding",
+            "1812-plank",
+            "1821-night-sky-moon-stars",
+            "1822-dandelion",
+            "1827-growing-plant",
+            "1832-sunflower",
+            "1838-greenhouse",
+            "1841-algae",
+            "1845-rose",
+            "1855-palmtree",
+            "1865-shooting-stars",
+            "1872-small-cute-monster",
+            "1876-cinema",
+            "1908-iceberg",
+            "1910-no-beverages",
+            "1912-no-alcohol",
+            "1918-city-hall",
+            "1920-fire-hydrant",
+            "1922-cemetery",
+            "1923-mosque",
+            "1927-food-truck",
+            "1931-desert",
+            "1933-vote-elections",
+            "1934-cathedral",
+            "1935-park-bench",
+            "1940-pagoda",
+            "1944-orthodox-church",
+            "1947-aztec-pyramid",
+            "1948-aztec-calendar",
+            "1953-african-culture",
+            "1954-taj-mahal",
+            "1957-maneki-cat",
+            "1958-pyramids",
+            "1961-gong",
+            "1963-yerba-mate-tea",
+            "1971-da-vinci",
+            "1976-ruins",
+            "1979-hookah",
+            "1984-torii",
+            "1985-police-car",
+            "1992-the-pope",
+            "1993-melting-glacier-global-warming",
+            "2229-candle",
+            "2230-candy-cane",
+            "2231-christmas-stocks",
+            "2233-elf",
+            "2234-firework",
+            "2235-holy-bible-book",
+            "2237-champagne-flutes",
+            "2238-santa",
+            "2239-star-of-bethlehem",
+        ];
+
+        let IS_INIT = false;
+        let PATH_ICONS = "assets/icons/"
+
+        // Input checkbox check only one item
+        $(document).on("change", "input[type='checkbox']", function () {
+            let $box = $(this);
+            if ($box.is(":checked")) {
+                let group = "input:checkbox[name='" + $box.attr("name") + "']";
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+            } else {
+                $box.prop("checked", false);
+            }
+        });
+
+        // On change checkbox check to make button disable/enable
+        $(document).on("change", "input[name='lrd-pack']", function () {
+            if ($("input[name='lrd-pack']:checked").val()) {
+                $("#set-lrd").removeAttr("disabled");
+            } else {
+                $("#set-lrd").attr("disabled", true);
+            }
+        });
+
+        // On click set icon button
+        $("#set-lrd").on("click", function () {
+            let val = $("input[name='lrd-pack']:checked").val();
+            $("#lrd-value").val(val);
+            $("#lrd-view lord-icon").attr("src", PATH_ICONS + val + ".json");
+            $("#lrd-view").removeClass("hide-lrd")
+            $(".lrd-view-remove").removeClass("hide-lrd")
+            $("#lrd-open").addClass("hide-lrd")
+        })
+        $(".lrd-view-remove").on("click", function () {
+            $("input[name='lrd-pack']:checked").prop( "checked", false );
+            $("#set-lrd").attr("disabled", true);
+            $("#lrd-value").val("");
+            $("#lrd-view lord-icon").attr("src", "");
+            $("#lrd-view").addClass("hide-lrd")
+            $(".lrd-view-remove").addClass("hide-lrd")
+            $("#lrd-open").removeClass("hide-lrd")
+        })
+
+        // On click dialog open btn
+        $("[cdialog-open-id]").on("click", function () {
+            $('[cdialog-id="' + $(this).attr("cdialog-open-id") + '"]').addClass("active");
+            if ($("input[name='lrd-pack']:checked").val()) {
+                $("#set-lrd").removeAttr("disabled");
+            }
+            // Initial render on first open window
+            if (!IS_INIT) {
+                IS_INIT = true;
+                render(LORD_ICON_MAPPING);
+            }
+        })
+
+        // On click dialog close btn
+        $("[cdialog-close-id]").on("click", function () {
+            $(`[cdialog-id="${$(this).attr("cdialog-close-id")}"]`).removeClass("active")
+        })
+
+        // On click out of dialog close dialog
+        $(document).on("click", ".cdialog-wrapper", function (e) {
+            if (!$(".cdialog-container").is(e.target) && $(".cdialog-container").has(e.target).length === 0) {
+                $(".cdialog-wrapper").removeClass("active")
+            }
+        });
+
+
+        // On search type input
+        $('#search-lrd').on('input', function (e) {
+            let filtered = LORD_ICON_MAPPING.filter(i => i.includes(e.target.value))
+            render(filtered);
+        });
+
+        // Function returns an icon with specified html wrapper
+        function icon_render(name) {
+            return '<div class="icons-item">' +
+                '<input type="checkbox" name="lrd-pack" value="' + name + '" id="lrd-' + name + '" class="icon-box">' +
+                '<label for="lrd-' + name + '">' +
+                '<img src="' + PATH_ICONS + name + '.svg" alt="lrd">' +
+                '</label>' +
+                '</div>';
+        }
+
+        // Render icons given to function
+        function render(data) {
+            let content = `<div class="icons-grid" >`;
+            data.forEach(i => {
+                content += icon_render(i);
+            });
+            content += `<div/>`;
+            $("#lord-icon-container").html(content);
+        }
+    });
+</script>
+
+</body>
+</html>

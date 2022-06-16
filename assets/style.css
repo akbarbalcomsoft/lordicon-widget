@@ -1,0 +1,175 @@
+.btn-square-icon {
+    height: 80px;
+    width: 80px;
+    background: #f5f5f5;
+    border: 1px solid #dfdfdf;
+    font-size: 0;
+    color: #f5f5f5;
+    position: relative;
+    background-color: rgb(245, 245, 245);
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+}
+.btn-container{
+    position: relative;
+    display: inline-block;
+}
+.btn-square-icon:hover {
+    color: #c8c8c8;
+    border-color: #c8c8c8;
+    text-decoration: none;
+}
+.cdialog-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(0 0 0 / 20%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s;
+}
+.cdialog-container {
+    width: 880px;
+    max-width: 100%;
+    background: #fff;
+}
+.icons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 21px;
+    height: 450px;
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+    padding: 16px;
+    align-items: flex-start;
+}
+.icons-item label img {
+    width: 100%;
+    height: auto;
+}
+.cdialog-header h3 {
+    font-size: 22px;
+    margin: 0;
+}
+.cdialog-footer {
+    padding: 16px;
+    border-top: 1px solid #dcdcde;
+    display: flex;
+    gap: 17px;
+    justify-content: flex-end;
+}
+.cdialog-header {
+    padding: 0 16px;
+    border-bottom: 1px solid #dcdcde;
+    display: flex;
+    justify-content: space-between;
+    min-height: 58px;
+    align-items: center;
+}
+.icons-item input {
+    position: absolute;
+    width: 25px;
+    height: 24px;
+    margin: 0;
+    border-radius: 0;
+    top: -5px;
+    right: -5px;
+    opacity: 0;
+    visibility: hidden;
+}
+.icons-item label {
+    display: block;
+    box-shadow: inset 0 0 15px rgb(0 0 0 / 10%), inset 0 0 0 1px rgb(0 0 0 / 5%);
+    background: #f0f0f1;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.icons-item {
+    position: relative;
+    cursor: pointer;
+    width: 12%;
+}
+.icons-item input:checked + label {
+    border-color: #4f94d4;
+    box-shadow: inset 0 0 7px #4f94d4, inset 0 0 0 2px #4f94d4;
+}
+.icons-item input:checked {
+    opacity: 1;
+    visibility: visible;
+}
+.btn {
+    background: #bcbcbc;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+    min-height: 32px;
+    line-height: 2.30769231;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-primary {
+    background-color: #0473aa;
+    border: 1px solid #2271b1;
+}
+.cdialog-wrapper.active {
+    opacity: 1;
+    visibility: visible;
+}
+.input-style {
+    padding: 0 8px;
+    height: 33px;
+    border-radius: 0;
+    border: 1px solid #adadad;
+    box-sizing: border-box;
+    outline: none !important;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+.input-style:focus {
+    border-color: #0473aa;
+}
+.btn[disabled] {
+    color: #a7aaad !important;
+    background: #f6f7f7 !important;
+    border-color: #dcdcde !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    cursor: default;
+}
+.hide-lrd{
+    display: none !important;
+}
+.btn-square-icon div {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.lrd-view-remove {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #2271b1;
+    padding: 2px;
+    font-size: 0;
+    cursor: pointer;
+}
+
+.lrd-view-remove svg {
+    width: 19px;
+    height: auto;
+}
