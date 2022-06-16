@@ -8,41 +8,41 @@
 
 </head>
 <body>
-
-<div class="btn-container">
-    <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
-        <div class="lrd-open" id="lrd-open">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
-            </svg>
-        </div>
-        <div class="hide-lrd" id="lrd-view">
-            <lord-icon
-                src=""
-                trigger="loop"
-                style="width:50px;height:50px">
-            </lord-icon>
-        </div>
-    </button>
-    <span class="lrd-view-remove hide-lrd">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
-    </span>
-</div>
-<input type="hidden" id="lrd-value">
-<div class="cdialog-wrapper" cdialog-id="lrd">
-    <div class="cdialog-container">
-        <div class="cdialog-header">
-            <h3>LordIcon Animated Icons</h3>
-            <div class="search">
-                <input type="search" id="search-lrd" class="input-style" placeholder="Search">
+<div class="vc-tigon-lordicon-container">
+    <div class="btn-container">
+        <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
+            <div class="lrd-open">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
+                </svg>
             </div>
-        </div>
-        <div class="cdialog-body" id="lord-icon-container">
-            <div class="icons-grid"></div>
-        </div>
-        <div class="cdialog-footer">
-            <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
-            <button type="button" class="btn btn-primary" id="set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
+            <div class="hide-lrd lrd-view">
+                <lord-icon
+                    src=""
+                    trigger="loop"
+                    style="width:50px;height:50px">
+                </lord-icon>
+            </div>
+        </button>
+        <span class="lrd-view-remove hide-lrd">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
+        </span>
+    </div>
+    <input type="hidden" class="lrd-value">
+    <div class="cdialog-wrapper" cdialog-id="lrd">
+        <div class="cdialog-container">
+            <div class="cdialog-header">
+                <h3>LordIcon Animated Icons</h3>
+                <div class="search">
+                    <input type="search" class="input-style search-lrd" placeholder="Search">
+                </div>
+            </div>
+            <div class="cdialog-body lord-icon-container">
+            </div>
+            <div class="cdialog-footer">
+                <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
+                <button type="button" class="btn btn-primary set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
+            </div>
         </div>
     </div>
 </div>
@@ -403,7 +403,6 @@
             "2239-star-of-bethlehem",
         ];
 
-        let IS_INIT = false;
         let PATH_ICONS = "assets/icons/"
 
         // Input checkbox check only one item
@@ -419,63 +418,63 @@
         });
 
         // On change checkbox check to make button disable/enable
-        $(document).on("change", "input[name='lrd-pack']", function () {
+        $(document).on("change", "input[name='lrd-pack']", function (e) {
             if ($("input[name='lrd-pack']:checked").val()) {
-                $("#set-lrd").removeAttr("disabled");
+                $(".set-lrd").removeAttr("disabled");
             } else {
-                $("#set-lrd").attr("disabled", true);
+                $(".set-lrd").attr("disabled", true);
             }
         });
 
         // On click set icon button
-        $("#set-lrd").on("click", function () {
-            let val = $("input[name='lrd-pack']:checked").val();
-            $("#lrd-value").val(val);
-            $("#lrd-view lord-icon").attr("src", PATH_ICONS + val + ".json");
-            $("#lrd-view").removeClass("hide-lrd")
-            $(".lrd-view-remove").removeClass("hide-lrd")
-            $("#lrd-open").addClass("hide-lrd")
+        $(".set-lrd").on("click", function () {
+            let val = $(this).closest(".vc-tigon-lordicon-container").find("input[name='lrd-pack']:checked").val();
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-value").val(val);
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view lord-icon").attr("src", PATH_ICONS + val + ".json");
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view").removeClass("hide-lrd")
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view-remove").removeClass("hide-lrd")
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-open").addClass("hide-lrd")
         })
         $(".lrd-view-remove").on("click", function () {
-            $("input[name='lrd-pack']:checked").prop( "checked", false );
-            $("#set-lrd").attr("disabled", true);
-            $("#lrd-value").val("");
-            $("#lrd-view lord-icon").attr("src", "");
-            $("#lrd-view").addClass("hide-lrd")
-            $(".lrd-view-remove").addClass("hide-lrd")
-            $("#lrd-open").removeClass("hide-lrd")
+            $(this).closest(".vc-tigon-lordicon-container").find("input[name='lrd-pack']:checked").prop( "checked", false );
+            $(this).closest(".vc-tigon-lordicon-container").find(".set-lrd").attr("disabled", true);
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-value").val("");
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view lord-icon").attr("src", "");
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view").addClass("hide-lrd")
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-view-remove").addClass("hide-lrd")
+            $(this).closest(".vc-tigon-lordicon-container").find(".lrd-open").removeClass("hide-lrd")
         })
 
         // On click dialog open btn
         $("[cdialog-open-id]").on("click", function () {
-            $('[cdialog-id="' + $(this).attr("cdialog-open-id") + '"]').addClass("active");
-            if ($("input[name='lrd-pack']:checked").val()) {
-                $("#set-lrd").removeAttr("disabled");
+            $(this).closest(".vc-tigon-lordicon-container").find('[cdialog-id="' + $(this).attr("cdialog-open-id") + '"]').addClass("active");
+            if ($(this).closest(".vc-tigon-lordicon-container").find("input[name='lrd-pack']:checked").val()) {
+                $(this).closest(".vc-tigon-lordicon-container").find(".set-lrd").removeAttr("disabled");
             }
             // Initial render on first open window
-            if (!IS_INIT) {
-                IS_INIT = true;
-                render(LORD_ICON_MAPPING);
+            if (!$(this).closest(".vc-tigon-lordicon-container").find(".cdialog-wrapper").attr("rendered")) {
+                $(this).closest(".vc-tigon-lordicon-container").find(".cdialog-wrapper").attr("rendered", true)
+                render(LORD_ICON_MAPPING, this);
             }
         })
 
         // On click dialog close btn
         $("[cdialog-close-id]").on("click", function () {
-            $(`[cdialog-id="${$(this).attr("cdialog-close-id")}"]`).removeClass("active")
+            $(this).closest(".vc-tigon-lordicon-container").find(`[cdialog-id="${$(this).attr("cdialog-close-id")}"]`).removeClass("active")
         })
 
         // On click out of dialog close dialog
         $(document).on("click", ".cdialog-wrapper", function (e) {
-            if (!$(".cdialog-container").is(e.target) && $(".cdialog-container").has(e.target).length === 0) {
-                $(".cdialog-wrapper").removeClass("active")
+            if (!$(this).closest(".vc-tigon-lordicon-container").find(".cdialog-container").is(e.target) && $(this).closest(".vc-tigon-lordicon-container").find(".cdialog-container").has(e.target).length === 0) {
+                $(this).closest(".vc-tigon-lordicon-container").find(".cdialog-wrapper").removeClass("active")
             }
         });
 
 
         // On search type input
-        $('#search-lrd').on('input', function (e) {
+        $('.search-lrd').on('input', function (e) {
             let filtered = LORD_ICON_MAPPING.filter(i => i.includes(e.target.value))
-            render(filtered);
+            render(filtered, this);
         });
 
         // Function returns an icon with specified html wrapper
@@ -489,13 +488,13 @@
         }
 
         // Render icons given to function
-        function render(data) {
+        function render(data, elem) {
             let content = `<div class="icons-grid" >`;
             data.forEach(i => {
                 content += icon_render(i);
             });
             content += `<div/>`;
-            $("#lord-icon-container").html(content);
+            $(elem).closest(".vc-tigon-lordicon-container").find(".lord-icon-container").html(content);
         }
     });
 </script>
