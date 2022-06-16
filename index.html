@@ -8,40 +8,81 @@
 
 </head>
 <body>
-<div class="vc-tigon-lordicon-container">
-    <div class="btn-container">
-        <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
-            <div class="lrd-open">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
-                </svg>
-            </div>
-            <div class="hide-lrd lrd-view">
-                <lord-icon
-                    src=""
-                    trigger="loop"
-                    style="width:50px;height:50px">
-                </lord-icon>
-            </div>
-        </button>
-        <span class="lrd-view-remove hide-lrd">
+<div style="display: flex; gap: 30px; padding: 30px">
+    <div class="vc-tigon-lordicon-container">
+        <div class="btn-container">
+            <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
+                <div class="lrd-open">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
+                    </svg>
+                </div>
+                <div class="hide-lrd lrd-view">
+                    <lord-icon
+                            src=""
+                            trigger="loop"
+                            style="width:50px;height:50px">
+                    </lord-icon>
+                </div>
+            </button>
+            <span class="lrd-view-remove hide-lrd">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
         </span>
-    </div>
-    <input type="hidden" class="lrd-value">
-    <div class="cdialog-wrapper" cdialog-id="lrd">
-        <div class="cdialog-container">
-            <div class="cdialog-header">
-                <h3>LordIcon Animated Icons</h3>
-                <div class="search">
-                    <input type="search" class="input-style search-lrd" placeholder="Search">
+        </div>
+        <input type="hidden" class="lrd-value">
+        <div class="cdialog-wrapper" cdialog-id="lrd">
+            <div class="cdialog-container">
+                <div class="cdialog-header">
+                    <h3>LordIcon Animated Icons</h3>
+                    <div class="search">
+                        <input type="search" class="input-style search-lrd" placeholder="Search">
+                    </div>
+                </div>
+                <div class="cdialog-body lord-icon-container">
+                </div>
+                <div class="cdialog-footer">
+                    <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
+                    <button type="button" class="btn btn-primary set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
                 </div>
             </div>
-            <div class="cdialog-body lord-icon-container">
-            </div>
-            <div class="cdialog-footer">
-                <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
-                <button type="button" class="btn btn-primary set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
+        </div>
+    </div>
+
+    <div class="vc-tigon-lordicon-container">
+        <div class="btn-container">
+            <button class="cdialog-open btn-square-icon" cdialog-open-id="lrd">
+                <div class="lrd-open">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="#2271b1"/>
+                    </svg>
+                </div>
+                <div class="hide-lrd lrd-view">
+                    <lord-icon
+                            src=""
+                            trigger="loop"
+                            style="width:50px;height:50px">
+                    </lord-icon>
+                </div>
+            </button>
+            <span class="lrd-view-remove hide-lrd">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
+        </span>
+        </div>
+        <input type="hidden" class="lrd-value">
+        <div class="cdialog-wrapper" cdialog-id="lrd">
+            <div class="cdialog-container">
+                <div class="cdialog-header">
+                    <h3>LordIcon Animated Icons</h3>
+                    <div class="search">
+                        <input type="search" class="input-style search-lrd" placeholder="Search">
+                    </div>
+                </div>
+                <div class="cdialog-body lord-icon-container">
+                </div>
+                <div class="cdialog-footer">
+                    <button type="button" class="btn btn-secondary" cdialog-close-id="lrd">Cancel</button>
+                    <button type="button" class="btn btn-primary set-lrd" cdialog-close-id="lrd" disabled>Set Icon</button>
+                </div>
             </div>
         </div>
     </div>
@@ -426,6 +467,9 @@
             }
         });
 
+        function uId(i){
+            return Date.now().toString(36) + Math.random().toString(36).substr(2)+i;
+        }
         // On click set icon button
         $(".set-lrd").on("click", function () {
             let val = $(this).closest(".vc-tigon-lordicon-container").find("input[name='lrd-pack']:checked").val();
@@ -479,9 +523,10 @@
 
         // Function returns an icon with specified html wrapper
         function icon_render(name) {
+            let uniqueId = uId(name)
             return '<div class="icons-item">' +
-                '<input type="checkbox" name="lrd-pack" value="' + name + '" id="lrd-' + name + '" class="icon-box">' +
-                '<label for="lrd-' + name + '">' +
+                '<input type="checkbox" name="lrd-pack" value="' + name + '" id="lrd-' + uniqueId + '" class="icon-box">' +
+                '<label for="lrd-' + uniqueId + '">' +
                 '<img src="' + PATH_ICONS + name + '.svg" alt="lrd">' +
                 '</label>' +
                 '</div>';
